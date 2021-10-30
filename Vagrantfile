@@ -8,14 +8,23 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Required for the Disks feature
+Vagrant.require_version ">= 2.2.8"
+ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
 Vagrant.configure("2") do |config|
 
   # Memory for the VMs (2GB)
-  MEMORY = 2048
+  MEMORY = 16384
+  CPU = 4
 
   # Number of nodes to provision
   MASTER_NODES = 3
-  CLIENT_NODES = 1
+  ADMIN_NODES = 1
 
   GROUP = "/cluster"
 
@@ -28,6 +37,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |vb|
     vb.memory = MEMORY
+    vb.cpus = CPU
+    vb.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
     vb.customize ["modifyvm", :id, "--groups", GROUP] unless GROUP.nil?
   end
 
@@ -52,9 +63,9 @@ Vagrant.configure("2") do |config|
     nextip = 100 + i
   end
 
-  (1..CLIENT_NODES).each do |i|
-    config.vm.define "client#{i}" do |client|
-      client.vm.hostname = "client#{i}.vagrant.vm"
+  (1..ADMIN_NODES).each do |i|
+    config.vm.define "admin#{i}" do |client|
+      client.vm.hostname = "admin#{i}.vagrant.vm"
       ip = nextip + i
       client.vm.network "private_network", ip: "192.168.99.#{ip}"
     end
