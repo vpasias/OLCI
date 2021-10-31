@@ -4,9 +4,9 @@
 # https://oracle.github.io/linux-labs/HA-NFS/
 # https://docs.oracle.com/en/learn/gluster-oracle-linux/index.html#introduction
 
-vagrant ssh storage1 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf --enablerepo=ha install -y corosync pacemaker pcs" && \
-vagrant ssh storage2 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf --enablerepo=ha install -y corosync pacemaker pcs" && \
-vagrant ssh storage3 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf --enablerepo=ha install -y corosync pacemaker pcs"
+vagrant ssh storage1 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream ol8_addons && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf --enablerepo=ha install -y corosync pacemaker pcs" && \
+vagrant ssh storage2 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream ol8_addons && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf --enablerepo=ha install -y corosync pacemaker pcs" && \
+vagrant ssh storage3 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream ol8_addons && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf --enablerepo=ha install -y corosync pacemaker pcs"
 
 vagrant ssh storage1 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
 vagrant ssh storage2 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
