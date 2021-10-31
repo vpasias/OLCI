@@ -59,3 +59,13 @@ sleep 5
 vagrant ssh storage1 -c "sudo pcs resource group add nfs_group nfs_server nfs_ip"
 sleep 5
 vagrant ssh storage1 -c "sudo pcs status"
+
+# Testing
+# vagrant ssh admin1 -c "sudo dnf install -y nfs-utils"
+# vagrant ssh admin1 -c "sudo mkdir /sharedvol && sudo mount -t nfs nfs.vagrant.vm:/sharedvol /sharedvol && df -h /sharedvol/"
+# vagrant ssh admin1 -c '"echo "Hello from OpenWorld" > sudo tee /sharedvol/hello'
+# vagrant ssh storage1 -c "sudo pcs status"
+# vagrant ssh storage1 -c "sudo pcs node standby storage1"
+# vagrant ssh storage1 -c "sudo pcs status"
+# vagrant ssh admin1 -c "sudo ls -la /sharedvol/ && sudo cat /sharedvol/hello"
+# vagrant ssh storage1 -c "sudo pcs node unstandby storage1"
