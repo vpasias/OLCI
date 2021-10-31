@@ -48,7 +48,7 @@ vagrant ssh storage3 -c "sudo systemctl enable corosync && sudo systemctl enable
 
 vagrant ssh storage1 -c "sudo pcs host auth storage1 storage2 storage3 -u hacluster -p gprm8350"
 sleep 5
-vagrant ssh storage1 -c "sudo pcs cluster setup --name HA-NFS storage1 storage2 storage3 --force"
+vagrant ssh storage1 -c "sudo pcs cluster setup HA-NFS storage1 storage2 storage3 --force"
 sleep 5
 vagrant ssh storage1 -c "sudo pcs cluster start --all && sudo pcs cluster enable --all"
 sleep 5
