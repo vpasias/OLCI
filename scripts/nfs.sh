@@ -28,7 +28,7 @@ vagrant ssh storage1 -c "sudo gluster peer probe nfs2.vagrant.vm && sudo gluster
 vagrant ssh storage1 -c "sudo gluster peer status && sudo gluster pool list"
 
 vagrant ssh storage1 -c "sudo gluster volume create sharedvol replica 3 nfs{1,2,3}.vagrant.vm:/data/glusterfs/myvolume/mybrick/brick" && \
-vagrant ssh storage1 -c "sudo gluster volume start sharedvol && sudo gluster volume info && gluster volume status"
+vagrant ssh storage1 -c "sudo gluster volume start sharedvol && sudo gluster volume info && sudo gluster volume status"
 
 vagrant ssh storage1 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf" && \
 vagrant ssh storage2 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf" && \
