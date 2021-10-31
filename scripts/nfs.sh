@@ -34,9 +34,9 @@ vagrant ssh storage1 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.gane
 vagrant ssh storage2 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf" && \
 vagrant ssh storage3 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf"
 
-vagrant ssh storage1 -c 'echo "hacluster:gprm8350" | sudo passwd' && \
-vagrant ssh storage2 -c 'echo "hacluster:gprm8350" | sudo passwd' && \
-vagrant ssh storage3 -c 'echo "hacluster:gprm8350" | sudo passwd'
+vagrant ssh storage1 -c 'echo -e "gprm8350\ngprm8350" | sudo passwd hacluster' && \
+vagrant ssh storage2 -c 'echo -e "gprm8350\ngprm8350" | sudo passwd hacluster' && \
+vagrant ssh storage3 -c 'echo -e "gprm8350\ngprm8350" | sudo passwd hacluster'
 
 vagrant ssh storage1 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
 vagrant ssh storage2 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
