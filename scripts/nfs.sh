@@ -58,7 +58,7 @@ vagrant ssh storage1 -c "sudo pcs cluster status"
 sleep 5
 vagrant ssh storage1 -c "sudo pcs resource create nfs_server systemd:nfs-ganesha op monitor interval=10s"
 sleep 5
-vagrant ssh storage1 -c "sudo pcs resource create nfs_ip ocf:heartbeat:IPaddr2 ip=192.168.99.100 cidr_netmask=24 op monitor interval=10s"
+vagrant ssh storage1 -c "sudo pcs resource create nfs_ip ocf:heartbeat:IPaddr2 ip=192.168.199.100 cidr_netmask=24 op monitor interval=10s"
 sleep 5
 vagrant ssh storage1 -c "sudo pcs resource group add nfs_group nfs_server nfs_ip"
 sleep 5
