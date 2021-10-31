@@ -6,11 +6,17 @@ ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
 
 $common = <<EOF
 lsblk
-dnf -y install cloud-utils-growpart gdisk
+dnf --assumeyes --nogpgcheck install device-mapper-persistent-data iproute-tc lvm2 util-linux e2fsprogs git vim wget curl cloud-utils-growpart gdisk
 growpart /dev/sda 2
 lsblk
 xfs_growfs /
 df -hT | grep /dev/sda
+echo "root:gprm8350" | sudo chpasswd
+echo "options kvm_intel nested=1" >> /etc/modprobe.d/kvm.conf
+modprobe -r kvm_intel
+modprobe kvm_intel
+cat /sys/module/kvm_intel/parameters/nested
+modinfo kvm_intel | grep -i nested
 EOF
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
