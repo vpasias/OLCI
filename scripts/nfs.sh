@@ -67,7 +67,10 @@ vagrant ssh storage1 -c "sudo pcs status"
 # Testing
 # vagrant ssh admin1 -c "sudo dnf install -y nfs-utils"
 # vagrant ssh admin1 -c "sudo mkdir /sharedvol && sudo mount -t nfs nfs.vagrant.vm:/sharedvol /sharedvol && df -h /sharedvol/"
-# vagrant ssh admin1 -c 'echo "Hello from OpenWorld" > sudo tee /sharedvol/hello'
+# vagrant ssh admin1
+# sudo -i
+# echo "Hello from OpenWorld" > sudo tee /sharedvol/hello
+# exit
 # vagrant ssh storage1 -c "sudo pcs status"
 # vagrant ssh storage1 -c "sudo pcs node standby storage1"
 # vagrant ssh storage1 -c "sudo pcs status"
