@@ -34,9 +34,13 @@ vagrant ssh storage1 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.gane
 vagrant ssh storage2 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf" && \
 vagrant ssh storage3 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf"
 
-vagrant ssh storage1 -c 'echo "hacluster:gprm8350" | sudo chpasswd' && \
-vagrant ssh storage2 -c 'echo "hacluster:gprm8350" | sudo chpasswd' && \
-vagrant ssh storage3 -c 'echo "hacluster:gprm8350" | sudo chpasswd'
+vagrant ssh storage1 -c 'echo "hacluster:gprm8350" | sudo passwd' && \
+vagrant ssh storage2 -c 'echo "hacluster:gprm8350" | sudo passwd' && \
+vagrant ssh storage3 -c 'echo "hacluster:gprm8350" | sudo passwd'
+
+vagrant ssh storage1 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
+vagrant ssh storage2 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
+vagrant ssh storage3 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload"
 
 vagrant ssh storage1 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd" && \
 vagrant ssh storage2 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd" && \
