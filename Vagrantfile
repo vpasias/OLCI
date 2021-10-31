@@ -73,9 +73,6 @@ Vagrant.configure("2") do |config|
 
   if Vagrant.has_plugin?("vagrant-hosts")
     config.vm.provision :hosts do |provisioner|
-      provisioner.add_localhost_hostnames = false
-      provisioner.sync_hosts = true
-      provisioner.autoconfigure = true
       provisioner.add_host  '192.168.199.100', ['nfs.vagrant.vm', 'nfs']
       provisioner.add_host  '192.168.199.101', ['nfs1.vagrant.vm', 'nfs1']
       provisioner.add_host  '192.168.199.102', ['nfs2.vagrant.vm', 'nfs1']
@@ -92,6 +89,9 @@ Vagrant.configure("2") do |config|
       controller.disksize.size = "120GB"
       ip = 10 + i
       controller.vm.network "private_network", ip: "192.168.99.#{ip}"
+      if Vagrant.has_plugin?("vagrant-hosts")
+        controller.vm.provision :hosts, :sync_hosts => true, :add_localhost_hostnames => false
+      end
       ips = 10 + i
       controller.vm.network "private_network", ip: "192.168.199.#{ips}"
       controller.vm.provision :shell, inline: $common
@@ -106,6 +106,9 @@ Vagrant.configure("2") do |config|
       compute.disksize.size = "120GB"
       ip = 20 + i
       compute.vm.network "private_network", ip: "192.168.99.#{ip}"
+      if Vagrant.has_plugin?("vagrant-hosts")
+        compute.vm.provision :hosts, :sync_hosts => true, :add_localhost_hostnames => false
+      end      
       ips = 20 + i
       compute.vm.network "private_network", ip: "192.168.199.#{ips}"
       compute.vm.provision :shell, inline: $common
@@ -121,7 +124,10 @@ Vagrant.configure("2") do |config|
       storage.disksize.size = "120GB"
       ip = 100 + i
       storage.vm.network "private_network", ip: "192.168.99.#{ip}"
-      ips = 110 + i
+      if Vagrant.has_plugin?("vagrant-hosts")
+        storage.vm.provision :hosts, :sync_hosts => true, :add_localhost_hostnames => false
+      end
+      ips = 100 + i
       storage.vm.network "private_network", ip: "192.168.199.#{ips}"
       storage.vm.provision :shell, inline: $common
       storage.vm.disk :disk, size: "200GB", name: "data" 	
@@ -131,12 +137,16 @@ Vagrant.configure("2") do |config|
   end
 
   (1..ADMIN_NODES).each do |i|
-    config.vm.define "admin#{i}" do |client|
-      client.vm.hostname = "admin#{i}.vagrant.vm"
-      ip = nextip + i
-      client.vm.network "private_network", ip: "192.168.99.#{ip}"
-      ips = nextips + i
-      client.vm.network "private_network", ip: "192.168.199.#{ips}"
+    config.vm.define "admin#{i}" do |admin|
+      admin.vm.hostname = "admin#{i}.vagrant.vm"
+      ip = nextip + 50 + i
+      admin.vm.network "private_network", ip: "192.168.99.#{ip}"
+      if Vagrant.has_plugin?("vagrant-hosts")
+        admin.vm.provision :hosts, :sync_hosts => true, :add_localhost_hostnames => false
+      end
+      ips = nextips + 50 + i
+      admin.vm.network "private_network", ip: "192.168.199.#{ips}"
+      admin.vm.provision :shell, inline: $common
     end
   end
 
