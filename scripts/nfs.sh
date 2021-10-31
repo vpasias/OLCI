@@ -4,9 +4,9 @@
 # https://oracle.github.io/linux-labs/HA-NFS/
 # https://docs.oracle.com/en/learn/gluster-oracle-linux/index.html#introduction
 
-vagrant ssh storage1 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client corosync nfs-ganesha-gluster pacemaker pcs git vim wget curl" && \
-vagrant ssh storage2 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client corosync nfs-ganesha-gluster pacemaker pcs git vim wget curl" && \
-vagrant ssh storage3 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client corosync nfs-ganesha-gluster pacemaker pcs git vim wget curl"
+vagrant ssh storage1 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client corosync nfs-ganesha-gluster pacemaker pcs" && \
+vagrant ssh storage2 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client corosync nfs-ganesha-gluster pacemaker pcs" && \
+vagrant ssh storage3 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream && sudo dnf install -y glusterfs-server glusterfs-client corosync nfs-ganesha-gluster pacemaker pcs"
 
 vagrant ssh storage1 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
 vagrant ssh storage2 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
@@ -34,3 +34,28 @@ vagrant ssh storage1 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.gane
 vagrant ssh storage2 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf" && \
 vagrant ssh storage3 -c "sudo mv /etc/ganesha/ganesha.conf /etc/ganesha/old.ganesha.conf && sudo cp /vagrant/scripts/ganesha.conf /etc/ganesha/ganesha.conf"
 
+vagrant ssh storage1 -c 'echo "hacluster:gprm8350" | sudo chpasswd' && \
+vagrant ssh storage2 -c 'echo "hacluster:gprm8350" | sudo chpasswd' && \
+vagrant ssh storage3 -c 'echo "hacluster:gprm8350" | sudo chpasswd'
+
+vagrant ssh storage1 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd" && \
+vagrant ssh storage2 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd" && \
+vagrant ssh storage3 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd"
+
+vagrant ssh storage1 -c "sudo pcs cluster auth storage1 storage2 storage3 -u hacluster -p gprm8350"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs cluster setup --name HA-NFS storage1 storage2 storage3 --force"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs cluster start --all && sudo pcs cluster enable --all"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs property set stonith-enabled=false"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs cluster status"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs resource create nfs_server systemd:nfs-ganesha op monitor interval=10s"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs resource create nfs_ip ocf:heartbeat:IPaddr2 ip=192.168.199.100 cidr_netmask=24 op monitor interval=10s"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs resource group add nfs_group nfs_server nfs_ip"
+sleep 5
+vagrant ssh storage1 -c "sudo pcs status"
