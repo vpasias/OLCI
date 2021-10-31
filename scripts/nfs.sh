@@ -42,9 +42,9 @@ vagrant ssh storage1 -c "sudo firewall-cmd --add-service=high-availability --per
 vagrant ssh storage2 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
 vagrant ssh storage3 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload"
 
-vagrant ssh storage1 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd" && \
-vagrant ssh storage2 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd" && \
-vagrant ssh storage3 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd"
+vagrant ssh storage1 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd.service" && \
+vagrant ssh storage2 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd.service" && \
+vagrant ssh storage3 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd.service"
 
 vagrant ssh storage1 -c "sudo pcs cluster auth storage1 storage2 storage3 -u hacluster -p gprm8350"
 sleep 5
