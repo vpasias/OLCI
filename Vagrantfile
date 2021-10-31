@@ -6,6 +6,7 @@ ENV['VAGRANT_EXPERIMENTAL'] = 'disks'
 
 $common = <<EOF
 lsblk
+dnf update -y
 dnf --assumeyes --nogpgcheck install device-mapper-persistent-data iproute-tc lvm2 util-linux e2fsprogs git vim wget curl cloud-utils-growpart gdisk
 growpart /dev/sda 2
 lsblk
