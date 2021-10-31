@@ -84,9 +84,9 @@ Vagrant.configure("2") do |config|
       provisioner.sync_hosts = true
       provisioner.autoconfigure = true
       provisioner.add_host  '192.168.99.100', ['nfs.vagrant.vm', 'nfs']
-      provisioner.add_host  '192.168.99.101', ['nfs1.vagrant.vm', 'nfs1']
-      provisioner.add_host  '192.168.99.102', ['nfs2.vagrant.vm', 'nfs1']
-      provisioner.add_host  '192.168.99.103', ['nfs3.vagrant.vm', 'nfs3']
+      provisioner.add_host  '192.168.199.101', ['nfs1.vagrant.vm', 'nfs1']
+      provisioner.add_host  '192.168.199.102', ['nfs2.vagrant.vm', 'nfs1']
+      provisioner.add_host  '192.168.199.103', ['nfs3.vagrant.vm', 'nfs3']
     end
   end
 
