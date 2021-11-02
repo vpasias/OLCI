@@ -8,9 +8,9 @@ vagrant ssh storage1 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo 
 vagrant ssh storage2 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream ol8_addons && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf install -y corosync pacemaker pcs" && \
 vagrant ssh storage3 -c "sudo dnf install -y oracle-gluster-release-el8 && sudo dnf config-manager --enable ol8_gluster_appstream ol8_baseos_latest ol8_appstream ol8_addons && sudo dnf install -y glusterfs-server glusterfs-client nfs-ganesha-gluster && sudo dnf install -y corosync pacemaker pcs"
 
-vagrant ssh storage1 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
-vagrant ssh storage2 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
-vagrant ssh storage3 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload"
+#vagrant ssh storage1 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
+#vagrant ssh storage2 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload" && \
+#vagrant ssh storage3 -c "sudo firewall-cmd --add-service=glusterfs --permanent && sudo firewall-cmd --reload"
 
 vagrant ssh storage1 -c "sudo systemctl enable --now glusterd.service" && \
 vagrant ssh storage2 -c "sudo systemctl enable --now glusterd.service" && \
@@ -38,9 +38,9 @@ vagrant ssh storage1 -c 'echo -e "gprm8350\ngprm8350" | sudo passwd hacluster' &
 vagrant ssh storage2 -c 'echo -e "gprm8350\ngprm8350" | sudo passwd hacluster' && \
 vagrant ssh storage3 -c 'echo -e "gprm8350\ngprm8350" | sudo passwd hacluster'
 
-vagrant ssh storage1 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
-vagrant ssh storage2 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
-vagrant ssh storage3 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload"
+#vagrant ssh storage1 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
+#vagrant ssh storage2 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload" && \
+#vagrant ssh storage3 -c "sudo firewall-cmd --add-service=high-availability --permanent && sudo firewall-cmd --reload"
 
 vagrant ssh storage1 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd.service" && \
 vagrant ssh storage2 -c "sudo systemctl enable corosync && sudo systemctl enable pacemaker && sudo systemctl enable --now pcsd.service" && \
