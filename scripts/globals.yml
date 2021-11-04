@@ -25,16 +25,16 @@
 # Kolla options
 ###############
 # Valid options are [ COPY_ONCE, COPY_ALWAYS ]
-#config_strategy: "COPY_ALWAYS"
+config_strategy: "COPY_ALWAYS"
 
 # Valid options are ['centos', 'debian', 'rhel', 'ubuntu']
-#kolla_base_distro: "centos"
+kolla_base_distro: "ubuntu"
 
 # Valid options are [ binary, source ]
-#kolla_install_type: "source"
+kolla_install_type: "source"
 
 # Do not override this unless you know what you are doing.
-#openstack_release: "master"
+openstack_release: "wallaby"
 
 # Docker image tag used by default.
 #openstack_tag: "{{ openstack_release ~ openstack_tag_suffix }}"
@@ -50,7 +50,7 @@
 # All-In-One without haproxy and keepalived, you can set enable_haproxy to no
 # in "OpenStack options" section, and set this value to the IP of your
 # 'network_interface' as set in the Networking section below.
-#kolla_internal_vip_address: "10.10.10.254"
+kolla_internal_vip_address: "192.168.99.250"
 
 # This is the DNS name that maps to the kolla_internal_vip_address VIP. By
 # default it is the same as kolla_internal_vip_address.
@@ -121,7 +121,7 @@
 # Yet another way to workaround the naming problem is to create a bond for the
 # interface on all hosts and give the bond name here. Similar strategy can be
 # followed for other types of interfaces.
-#network_interface: "eth0"
+network_interface: "eth1"
 
 # These can be adjusted for even more customization. The default is the same as
 # the 'network_interface'. These interfaces must contain an IP address.
@@ -151,11 +151,11 @@
 # though an IP address can exist on this interface, it will be unusable in most
 # configurations. It is recommended this interface not be configured with any IP
 # addresses for that reason.
-#neutron_external_interface: "eth1"
+neutron_external_interface: "eth3"
 
 # Valid options are [ openvswitch, ovn, linuxbridge, vmware_nsxv, vmware_nsxv3, vmware_dvs ]
 # if vmware_nsxv3 is selected, enable_openvswitch MUST be set to "no" (default is yes)
-#neutron_plugin_agent: "openvswitch"
+neutron_plugin_agent: "openvswitch"
 
 # Valid options are [ internal, infoblox ]
 #neutron_ipam_driver: "internal"
@@ -178,7 +178,7 @@
 # Arbitrary unique number from 0..255
 # This should be changed from the default in the event of a multi-region deployment
 # where the VIPs of different regions reside on a common subnet.
-#keepalived_virtual_router_id: "51"
+keepalived_virtual_router_id: "51"
 
 ###################
 # Dimension options
@@ -272,7 +272,7 @@
 
 # Enable core OpenStack services. This includes:
 # glance, keystone, neutron, nova, heat, and horizon.
-#enable_openstack_core: "yes"
+enable_openstack_core: "yes"
 
 # These roles are required for Kolla to be operation, however a savvy deployer
 # could disable some of these required roles and run their own services.
@@ -298,12 +298,12 @@
 #enable_central_logging: "no"
 #enable_ceph_rgw: "no"
 #enable_ceph_rgw_loadbalancer: "{{ enable_ceph_rgw | bool }}"
-#enable_cinder: "no"
-#enable_cinder_backup: "yes"
+enable_cinder: "yes"
+enable_cinder_backup: "yes"
 #enable_cinder_backend_hnas_nfs: "no"
-#enable_cinder_backend_iscsi: "{{ enable_cinder_backend_lvm | bool }}"
-#enable_cinder_backend_lvm: "no"
-#enable_cinder_backend_nfs: "no"
+enable_cinder_backend_iscsi: "{{ enable_cinder_backend_lvm | bool }}"
+enable_cinder_backend_lvm: "no"
+enable_cinder_backend_nfs: "yes"
 #enable_cinder_backend_quobyte: "no"
 #enable_cloudkitty: "no"
 #enable_collectd: "no"
@@ -359,16 +359,16 @@
 #enable_manila_backend_cephfs_nfs: "no"
 #enable_manila_backend_glusterfs_nfs: "no"
 #enable_mariabackup: "no"
-#enable_masakari: "no"
+enable_masakari: "yes"
 #enable_mistral: "no"
 #enable_monasca: "no"
 #enable_multipathd: "no"
 #enable_murano: "no"
 #enable_neutron_vpnaas: "no"
 #enable_neutron_sriov: "no"
-#enable_neutron_dvr: "no"
+enable_neutron_dvr: "yes"
 #enable_neutron_qos: "no"
-#enable_neutron_agent_ha: "no"
+enable_neutron_agent_ha: "yes"
 #enable_neutron_bgp_dragent: "no"
 #enable_neutron_provider_networks: "no"
 #enable_neutron_segments: "no"
@@ -381,7 +381,7 @@
 #enable_nova_ssh: "yes"
 #enable_octavia: "no"
 #enable_octavia_driver_agent: "{{ enable_octavia | bool and neutron_plugin_agent == 'ovn' }}"
-#enable_openvswitch: "{{ enable_neutron | bool and neutron_plugin_agent != 'linuxbridge' }}"
+enable_openvswitch: "{{ enable_neutron | bool and neutron_plugin_agent != 'linuxbridge' }}"
 #enable_ovn: "{{ enable_neutron | bool and neutron_plugin_agent == 'ovn' }}"
 #enable_ovs_dpdk: "no"
 #enable_osprofiler: "no"
