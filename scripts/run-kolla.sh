@@ -83,6 +83,7 @@ sudo dnf update -y && sudo dnf install python3-venv python3-pip python3-devel li
 
 echo 'run-kolla.sh: Install ansible'
 sudo pip3 install -U pip
+sudo pip3 install --upgrade pip
 sudo pip install -U 'ansible<3.0'
 
 if [ $? -ne 0 ]; then
