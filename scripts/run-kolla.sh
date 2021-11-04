@@ -163,7 +163,7 @@ echo 'run-kolla.sh: Running sudo apt install python3-openstackclient'
 sudo apt install python3-openstackclient -y
 
 echo 'run-kolla.sh: Running sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce'
-sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce
+#sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce
 #echo 'run-kolla.sh: Running cd /usr/local/share/kolla-ansible'
 #cd /usr/local/share/kolla-ansible
 #echo 'run-kolla.sh: Running sudo ./init-runonce'
