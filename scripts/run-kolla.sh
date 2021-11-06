@@ -132,7 +132,7 @@ export ANSIBLE_LOG_PATH=ansible.log
 echo 'run-kolla.sh: Running sudo kolla-genpwd'
 kolla-genpwd
 
-ansible -i multinode all -m raw -a "sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && sudo dnf install docker-ce docker-ce-cli containerd.io -y && sudo systemctl enable docker && sudo systemctl start docker && sudo systemctl status docker"
+ssh -o StrictHostKeyChecking=no vagrant@controller1 "sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && sudo dnf install docker-ce docker-ce-cli containerd.io -y && sudo systemctl enable docker && sudo systemctl start docker && sudo systemctl status docker"
 
 echo 'run-kolla.sh: Running kolla-ansible -i multinode bootstrap-servers'
 kolla-ansible -i multinode bootstrap-servers
