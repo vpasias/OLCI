@@ -21,7 +21,7 @@ ssh-keygen -q -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
 #############################################################################
 
 echo 'run-kolla.sh: Install sshpass'
-sudo dnf install sshpass -y
+sudo dnf install epel-release -y && sudo dnf makecache && sudo dnf install sshpass -y
 
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@controller1 - Controller 1'
 sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@controller1
