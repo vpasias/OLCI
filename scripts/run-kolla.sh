@@ -109,7 +109,7 @@ sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/passwords.yml /etc/
 echo 'run-kolla.sh: Running sudo cp globals.yml /etc/kolla'
 sudo cp globals.yml /etc/kolla
 
-#sudo mkdir -p /etc/kolla/config
+sudo mkdir -p /etc/kolla/config
 #sudo mkdir -p /etc/kolla/config/cinder
 #sudo mkdir -p /etc/kolla/config/cinder/cinder-volume
 #sudo mkdir -p /etc/kolla/config/cinder/cinder-backup
