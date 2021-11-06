@@ -79,7 +79,7 @@ ssh -o StrictHostKeyChecking=no vagrant@compute3 "lsblk && sudo vgs"
 
 sudo bash controller_setup.sh
 
-sudo dnf update -y && sudo dnf install python3-requests -y && sudo dnf install python3-venv python3-pip python3-devel libffi-devel gcc openssl-devel python3-libselinux python3-jinja2 -y
+sudo dnf update -y && sudo dnf install python3-requests -y && sudo dnf install python3-pip python3-devel libffi-devel gcc openssl-devel python3-libselinux python3-jinja2 -y
 
 echo 'run-kolla.sh: Install ansible'
 sudo pip3 install -U pip
