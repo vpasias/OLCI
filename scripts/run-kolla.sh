@@ -92,7 +92,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo 'run-kolla.sh: Running sudo pip install kolla-ansible'
-sudo pip3 install 'kolla-ansible == 12.*'
+sudo pip3 install 'kolla-ansible == 12.*' --ignore-installed PyYAML
 sudo mkdir -p /etc/kolla && sudo chown $USER:$USER /etc/kolla
 
 if [ $? -ne 0 ]; then
