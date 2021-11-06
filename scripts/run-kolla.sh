@@ -84,7 +84,7 @@ sudo dnf update -y && sudo dnf install python3-requests -y && sudo dnf install p
 echo 'run-kolla.sh: Install ansible'
 sudo pip3 install -U pip
 sudo pip3 install --upgrade pip
-sudo pip install -U 'ansible<3.0'
+sudo pip3 install -U 'ansible<3.0'
 
 if [ $? -ne 0 ]; then
   echo "Cannot install Ansible"
