@@ -65,10 +65,10 @@ ssh -o StrictHostKeyChecking=no vagrant@compute2 "sudo bash /home/vagrant/comput
 echo 'run-kolla.sh: Running ssh vagrant@compute3 “sudo bash /home/vagrant/compute_setup.sh”'
 ssh -o StrictHostKeyChecking=no vagrant@compute3 "sudo bash /home/vagrant/compute_setup.sh"
 
-ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sdb"
+ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo pvcreate /dev/sdb && sudo vgcreate cinder-volumes /dev/sdb"
 #ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo pvcreate /dev/sdb && sudo pvcreate /dev/sdc && sudo vgcreate cinder-volumes /dev/sdb /dev/sdc && lvcreate -L 100G -m1 -n lv_mirror cinder-volumes"
-ssh -o StrictHostKeyChecking=no vagrant@compute2 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sdb"
-ssh -o StrictHostKeyChecking=no vagrant@compute3 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sdb"
+ssh -o StrictHostKeyChecking=no vagrant@compute2 "sudo pvcreate /dev/sdb && sudo vgcreate cinder-volumes /dev/sdb"
+ssh -o StrictHostKeyChecking=no vagrant@compute3 "sudo pvcreate /dev/sdb && sudo vgcreate cinder-volumes /dev/sdb"
 
 ssh -o StrictHostKeyChecking=no vagrant@compute1 "lsblk && sudo vgs"
 ssh -o StrictHostKeyChecking=no vagrant@compute2 "lsblk && sudo vgs"
