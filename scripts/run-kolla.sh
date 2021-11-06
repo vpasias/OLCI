@@ -127,7 +127,7 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH=ansible.log
 
 echo 'run-kolla.sh: Running sudo kolla-genpwd'
-sudo kolla-genpwd
+kolla-genpwd
 
 echo 'run-kolla.sh: Running kolla-ansible -i multinode bootstrap-servers'
 kolla-ansible -i multinode bootstrap-servers
