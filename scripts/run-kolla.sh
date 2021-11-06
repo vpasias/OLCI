@@ -93,7 +93,7 @@ fi
 
 echo 'run-kolla.sh: Running sudo pip install kolla-ansible'
 sudo pip3 install 'kolla-ansible == 12.*' --ignore-installed PyYAML
-sudo mkdir -p /etc/kolla && sudo chown vagrant:vagrant /etc/kolla
+sudo mkdir -p /etc/kolla && sudo chown -R vagrant:vagrant /etc/kolla
 
 if [ $? -ne 0 ]; then
   echo "Cannot install kolla-ansible"
@@ -109,7 +109,7 @@ sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/passwords.yml /etc/
 echo 'run-kolla.sh: Running sudo cp globals.yml /etc/kolla'
 sudo cp globals.yml /etc/kolla
 
-sudo mkdir -p /etc/kolla/config
+sudo mkdir -p /etc/kolla/config && sudo chown -R vagrant:vagrant /etc/kolla/config
 #sudo mkdir -p /etc/kolla/config/cinder
 #sudo mkdir -p /etc/kolla/config/cinder/cinder-volume
 #sudo mkdir -p /etc/kolla/config/cinder/cinder-backup
