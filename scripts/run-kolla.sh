@@ -93,7 +93,7 @@ fi
 
 echo 'run-kolla.sh: Running sudo pip install kolla-ansible'
 sudo pip3 install 'kolla-ansible == 12.*' --ignore-installed PyYAML
-sudo mkdir -p /etc/kolla && sudo chown $USER:$USER /etc/kolla
+sudo mkdir -p /etc/kolla && sudo chown vagrant:vagrant /etc/kolla
 
 if [ $? -ne 0 ]; then
   echo "Cannot install kolla-ansible"
