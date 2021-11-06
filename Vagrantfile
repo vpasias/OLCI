@@ -62,6 +62,8 @@ Vagrant.configure("2") do |config|
     vb.customize ['modifyvm', :id, '--nicpromisc1', 'allow-all']
     vb.customize ["modifyvm", :id, "--nictype2", "virtio", "--cableconnected2", "on"]
     vb.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
+    vb.customize ["modifyvm", :id, "--nictype3", "virtio", "--cableconnected3", "on"]
+    vb.customize ['modifyvm', :id, '--nicpromisc3', 'allow-all']
     # https://bugs.launchpad.net/cloud-images/+bug/1829625/comments/2
     vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
     vb.customize ['modifyvm', :id, '--uart2', '0x2F8', '3']
@@ -101,6 +103,7 @@ Vagrant.configure("2") do |config|
       controller.vm.network "private_network", ip: "192.168.99.#{ip}"
       ips = 10 + i
       controller.vm.network "private_network", ip: "192.168.199.#{ips}"
+      controller.vm.network "private_network", ip: "0.0.0.0", virtualbox__intnet: true
       controller.vm.provision :shell, inline: $common
     end
     nextip = 10 + i
@@ -115,6 +118,7 @@ Vagrant.configure("2") do |config|
       compute.vm.network "private_network", ip: "192.168.99.#{ip}"  
       ips = 20 + i
       compute.vm.network "private_network", ip: "192.168.199.#{ips}"
+      compute.vm.network "private_network", ip: "0.0.0.0", virtualbox__intnet: true
       compute.vm.provision :shell, inline: $common
       compute.vm.disk :disk, size: "200GB", name: "data" 	
     end
@@ -130,6 +134,7 @@ Vagrant.configure("2") do |config|
       storage.vm.network "private_network", ip: "192.168.99.#{ip}"
       ips = 100 + i
       storage.vm.network "private_network", ip: "192.168.199.#{ips}"
+      storage.vm.network "private_network", ip: "0.0.0.0", virtualbox__intnet: true
       storage.vm.provision :shell, inline: $common
       storage.vm.disk :disk, size: "200GB", name: "data" 	
     end
@@ -144,6 +149,7 @@ Vagrant.configure("2") do |config|
       admin.vm.network "private_network", ip: "192.168.99.#{ip}"
       ips = nextips + 50 + i
       admin.vm.network "private_network", ip: "192.168.199.#{ips}"
+      admin.vm.network "private_network", ip: "0.0.0.0", virtualbox__intnet: true
       admin.vm.provision :shell, inline: $common
     end
   end
