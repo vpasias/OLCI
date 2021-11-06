@@ -132,6 +132,8 @@ export ANSIBLE_LOG_PATH=ansible.log
 echo 'run-kolla.sh: Running sudo kolla-genpwd'
 kolla-genpwd
 
+ansible -i multinode all -m raw -a "sudo dnf -y install python3"
+
 echo 'run-kolla.sh: Running kolla-ansible -i multinode bootstrap-servers'
 kolla-ansible -i multinode bootstrap-servers
 
