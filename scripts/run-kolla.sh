@@ -51,19 +51,19 @@ scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@compute2:/home/vagrant/
 echo 'run-kolla.sh: Running scp compute_setup.sh vagrant@compute3:/home/vagrant/compute_setup.sh'
 scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@compute3:/home/vagrant/compute_setup.sh
 
-echo 'run-kolla.sh: Running ssh vagrant@controller1 "sudo bash /home/vagrant/controller_setup.sh"'
-ssh -o StrictHostKeyChecking=no vagrant@controller1 "sudo bash /home/vagrant/controller_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@controller2 "sudo bash /home/vagrant/controller_setup.sh"'
-ssh -o StrictHostKeyChecking=no vagrant@controller2 "sudo bash /home/vagrant/controller_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@controller3 "sudo bash /home/vagrant/controller_setup.sh"'
-ssh -o StrictHostKeyChecking=no vagrant@controller3 "sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@controller1 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@controller1 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@controller2 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@controller2 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@controller3 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@controller3 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/controller_setup.sh"
 
-echo 'run-kolla.sh: Running ssh vagrant@compute1 “sudo bash /home/vagrant/compute_setup.sh”'
-ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo bash /home/vagrant/compute_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@compute2 “sudo bash /home/vagrant/compute_setup.sh”'
-ssh -o StrictHostKeyChecking=no vagrant@compute2 "sudo bash /home/vagrant/compute_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@compute3 “sudo bash /home/vagrant/compute_setup.sh”'
-ssh -o StrictHostKeyChecking=no vagrant@compute3 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@compute1 “sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@compute2 “sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@compute2 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@compute3 “sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@compute3 "sudo dnf install oracle-epel-release-el8 -y && sudo dnf makecache && sudo bash /home/vagrant/compute_setup.sh"
 
 ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo pvcreate /dev/sdb && sudo vgcreate cinder-volumes /dev/sdb"
 #ssh -o StrictHostKeyChecking=no vagrant@compute1 "sudo pvcreate /dev/sdb && sudo pvcreate /dev/sdc && sudo vgcreate cinder-volumes /dev/sdb /dev/sdc && lvcreate -L 100G -m1 -n lv_mirror cinder-volumes"
