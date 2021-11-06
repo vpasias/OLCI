@@ -93,7 +93,7 @@ fi
 
 echo 'run-kolla.sh: Running sudo pip install kolla-ansible'
 sudo pip3 install 'kolla-ansible == 12.*' --ignore-installed PyYAML
-sudo mkdir -p /etc/kolla && sudo chown -R vagrant:vagrant /etc/kolla
+sudo mkdir -p /etc/kolla
 
 if [ $? -ne 0 ]; then
   echo "Cannot install kolla-ansible"
@@ -119,6 +119,9 @@ sudo mkdir -p /etc/kolla/config && sudo chown -R vagrant:vagrant /etc/kolla/conf
 cat << EOF | sudo tee /etc/kolla/config/nfs_shares
 nfs.vagrant.vm:/sharedvol
 EOF
+
+sudo chown -R vagrant:vagrant /etc/kolla
+sudo chown -R vagrant:vagrant /etc/kolla/config
 
 # ---- PART FOUR ----
 # Run Kolla-Ansible Playbooks
