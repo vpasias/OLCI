@@ -71,6 +71,7 @@ vagrant ssh storage1 -c "sudo pcs status"
 # sudo -i
 # echo "Hello from OpenWorld" > sudo tee /sharedvol/hello
 # exit
+# exit
 # vagrant ssh storage1 -c "sudo pcs status"
 # vagrant ssh storage1 -c "sudo pcs node standby storage1"
 # vagrant ssh storage1 -c "sudo pcs status"
